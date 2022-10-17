@@ -11,14 +11,32 @@ export const ListarContatos = () => {
     fetch("http://localhost/contatos/index.php")
     .then((response) => response.json())
     .then((responseJson) => (
-      console.log(responseJson),
       setData(responseJson.records)
     ))
   }
   useEffect(() => {
     getProdutos()
   },[])
-  const atributos = ['ID', 'Nome', 'Sobrenome', 'E-mail', 'Data de Nascimento', 'Telefone', 'Celular'].map(atributo =>
+  const [contato, setContato] = useState({
+    filtrar: ''
+  })
+  const valorInput = e => setContato({ ...contato, [e.target.name]: e.target.value})
+  const cadContato = async e => {
+    e.preventDefault();
+    
+    await fetch("http://localhost/contatos/filtrar.php", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({contato})
+    })
+    .then((response) => response.json())
+    .then((responseJson) => (
+      setData(responseJson.records)
+    ))
+}
+  const atributos = ['ID', 'Nome', 'Sobrenome', 'E-mail', 'Data de Nascimento', 'Telefone', 'Celular','Ações'].map(atributo =>
     <th>{atributo}</th>)
   return (
     <section className='container containerListar'>
@@ -30,6 +48,10 @@ export const ListarContatos = () => {
       <div className='title'>
         <img src={ImgListar} className='iconTitle'/>
         <h3>Listar</h3>
+        <form onSubmit={cadContato}>
+          <input type="text" name='filtrar' onChange={valorInput}/>
+          <input type="submit" name='submit' value={"Filtrar"}/>
+        </form>
       </div>
       <table>
         <thead>
@@ -47,6 +69,7 @@ export const ListarContatos = () => {
               <td>{contato.data_de_nascimento}</td>
               <td>{contato.telefone}</td>
               <td>{contato.celular}</td>
+              <td>Editar Apagar</td>
             </tr>
           ))}
         </tbody>

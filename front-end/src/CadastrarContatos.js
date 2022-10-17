@@ -17,10 +17,6 @@ export const CadastrarContatos = () => {
         celular: ''
     })
 
-    const [status, setStatus] = useState({
-        type: '',
-        mensagem: ''
-    });
     const valorInput = e => setContato({ ...contato, [e.target.name]: e.target.value})
     const cadContato = async e => {
         e.preventDefault();
@@ -35,22 +31,8 @@ export const CadastrarContatos = () => {
         .then((response) => response.json())
         .then((responseJson) => (
             console.log(responseJson)
-        )).catch(() => {
-            setStatus({
-                type: 'erro',
-                mensagem: 'Contato não cadastrado com sucesso'
-            })
-        })
+        ))
     }
-
-
-    const entradas = [['Nome','nome','text'],['Sobrenome','sobrenome','text'], ['E-mail','email','email']].map(i => 
-        <input className='field' type={i[2]} name={i[1]} placeholder={i[0]} onChange={valorInput}/>)
-    const entradas2 = [['Data de Nascimento','data_de_nascimento','date','Nascimento:'],['(DDD)XXXX-XXXX','telefone','tel','Telefone:'],['(DDD)9XXXX-XXXX','celular','tel','Celular:']].map(i => 
-        <div className='divfield'>
-            <h4>{i[3]}</h4>
-            <input className='field' type={i[2]} name={i[1]} placeholder={i[0]} onChange={valorInput}/>
-        </div>)
     return (
         <section className='container containerCadastrar'>
             <div className='title'>
@@ -63,8 +45,21 @@ export const CadastrarContatos = () => {
                 <h3>Cadastrar</h3>
             </div>
             <form className='form' onSubmit={cadContato}>
-                {entradas}
-                {entradas2}
+                <input className='field' type="text" name="nome" placeholder="Nome" onChange={valorInput}/>
+                <input className='field' type="text" name="sobrenome" placeholder="Sobrenome" onChange={valorInput}/>
+                <input className='field' type="text" name="email" placeholder="E-mail" onChange={valorInput}/>
+                <div className='divfield'>
+                    <h4>Data de Nascimento:</h4>
+                    <input className='field' type="date" name="data_de_nascimento" placeholder="Data de Nascimento" onChange={valorInput}/>
+                </div>
+                <div className='divfield'>
+                    <h4>Telefone:</h4>
+                    <input className='field' type="text" name="telefone" placeholder="Telefone" onChange={valorInput}/>
+                </div>
+                <div className='divfield'>
+                    <h4>Celular:</h4>
+                    <input className='field' type="text" name="celular" placeholder="Celular" onChange={valorInput}/>
+                </div>
                 <input className='btn btnCadastrar' type="submit" name="submit" value="Adicionar Contato"/>
                 <input type="reset" className='btn btnCadastrar' value="Limpar"/>
             </form>
