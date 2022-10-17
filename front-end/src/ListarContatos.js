@@ -7,15 +7,23 @@ import { Link } from 'react-router-dom';
 
 export const ListarContatos = () => {
   const [data, setData] = useState([])
-  const getProdutos = async () => {
+  const getContatos = async () => {
     fetch("http://localhost/contatos/index.php")
     .then((response) => response.json())
     .then((responseJson) => (
       setData(responseJson.records)
     ))
   }
+  const apagar = async (idContato) => {
+    
+    await fetch("http://localhost/contatos/apagar.php?id="+idContato)
+    .then((response) => response.json())
+    .then((responseJson) => (
+      console.log(responseJson)
+    ))
+  }
   useEffect(() => {
-    getProdutos()
+    getContatos()
   },[])
   const [contato, setContato] = useState({
     filtrar: ''
@@ -69,7 +77,7 @@ export const ListarContatos = () => {
               <td>{contato.data_de_nascimento}</td>
               <td>{contato.telefone}</td>
               <td>{contato.celular}</td>
-              <td>Editar Apagar</td>
+              <td><button className='btn btnApagar' onClick={() => apagar(contato.id)}>Apagar</button></td>
             </tr>
           ))}
         </tbody>
