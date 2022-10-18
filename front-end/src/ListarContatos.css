@@ -1,6 +1,14 @@
 .containerListar{
   width: 1000px;
 }
+.coluna{
+  background: rgb(39, 39, 133);
+  border: solid 1px var(--dark-blue);
+}
+.colunaInfo{
+  text-align: center;
+  border: solid 1px var(--dark-blue);
+}
 .btnApagar{
   background-color: rgb(177, 2, 32);
   height: 30px;

@@ -45,7 +45,7 @@ export const ListarContatos = () => {
     ))
 }
   const atributos = ['ID', 'Nome', 'Sobrenome', 'E-mail', 'Data de Nascimento', 'Telefone', 'Celular','Ações'].map(atributo =>
-    <th>{atributo}</th>)
+    <th className='coluna'>{atributo}</th>)
   return (
     <section className='container containerListar'>
       <div className='title'>
@@ -70,14 +70,14 @@ export const ListarContatos = () => {
         <tbody>
           {Object.values(data).map(contato => (
             <tr key={contato.id}>
-              <td>{contato.id}</td>
-              <td>{contato.nome}</td>
-              <td>{contato.sobrenome}</td>
-              <td>{contato.email}</td>
-              <td>{contato.data_de_nascimento}</td>
-              <td>{contato.telefone}</td>
-              <td>{contato.celular}</td>
-              <td><button className='btn btnApagar' onClick={() => apagar(contato.id)}>Apagar</button></td>
+              <td class="colunaInfo">{contato.id}</td>
+              <td class="colunaInfo">{contato.nome}</td>
+              <td class="colunaInfo">{contato.sobrenome}</td>
+              <td class="colunaInfo">{contato.email}</td>
+              <td class="colunaInfo">{contato.data_de_nascimento}</td>
+              <td class="colunaInfo">{contato.telefone}</td>
+              <td class="colunaInfo">{contato.celular}</td>
+              <td class="colunaInfo"><button className='btn btnApagar' onClick={() => apagar(contato.id)}>Apagar</button></td>
             </tr>
           ))}
         </tbody>
